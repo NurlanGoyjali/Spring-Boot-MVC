@@ -10,4 +10,8 @@ import org.springframework.web.bind.annotation.RestController;
 @Log4j2
 @RequestMapping("/api/admin")
 public class ProductController {
+
+
+
+
 }

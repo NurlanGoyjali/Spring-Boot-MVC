@@ -35,6 +35,29 @@ public class UserController {
 
 
 
+    @Bean
+    CommandLineRunner commandLineRunner() {
+        return new CommandLineRunner() {
+            @Override
+            public void run(String... args) throws Exception {
+                BCryptPasswordEncoder bCryptPasswordEncoder =
+                        new BCryptPasswordEncoder();
+                var asd = bCryptPasswordEncoder.encode("12345");
+
+                log.info("ENCODED FKING PASSWORD : " + asd);
+            }
+        };
+    }
+    @PreAuthorize("hasAnyAuthority('USER','ADMIN')")
+    @GetMapping("/dev")
+    public ResponseEntity BelkeBuGunBelkeSeher( @AuthenticationPrincipal User user ) {
+        User userDetails = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        log.info("MY USER : " + SecurityContextHolder.getContext().getAuthentication().getPrincipal()  );
+        log.info("MY USER roles: " + SecurityContextHolder.getContext().getAuthentication().getAuthorities()  );
+        log.info("MY USER  user: " + user );
+        log.info("MY USER  user: " + userDetails.getId() );
+        return ResponseEntity.ok(SecurityContextHolder.getContext().getAuthentication().getAuthorities()+"\n"+user);
+    }
 
 
     @PreAuthorize("hasAnyAuthority('USER','ADMIN')")

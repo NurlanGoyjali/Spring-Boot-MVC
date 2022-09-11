@@ -4,8 +4,8 @@ server:
 spring:
   datasource:
     url: jdbc:postgresql://ec2-52-30-159-47.eu-west-1.compute.amazonaws.com:5432/dfj0673qhs69e2
-    username: MAIL TO ME !!
-    password: DO U WANNA SEE MY PASSWORDS ? MAIL TO ME !! :P
+    username: jsouszdbjxsjsb
+    password: 90105edbecf5d5842cdbedf3daf50d47886c7d0b4120df6c74c4fa18cdd4ad48
   jpa:
     hibernate:
       ddl-auto: update
