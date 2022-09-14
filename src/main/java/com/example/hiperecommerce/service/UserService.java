@@ -1,11 +1,9 @@
 package com.example.hiperecommerce.service;
 
-import com.example.hiperecommerce.DTOs.UserDto;
 import com.example.hiperecommerce.entity.User;
 import com.example.hiperecommerce.reposiory.UserRepositry;
 import lombok.AllArgsConstructor;
 import lombok.extern.log4j.Log4j2;
-import org.modelmapper.ModelMapper;
 import org.springframework.security.core.userdetails.*;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -30,6 +28,14 @@ public class UserService implements UserDetailsService {
                 .filter(x->x.getUsername().equals(username)).findFirst();
     }
 
+    public boolean checkUsername(String username){ // if it is empty, this method get return true
+        return  userRepositry.findAll().stream().filter(x->x.getUsername().equals(username)).findFirst().isEmpty();
+    }
+
+    public boolean checkEmail(String email){ // if it is empty, this method get return true
+        return userRepositry.findAll().stream().filter(x->x.getEmail().equals(email)).findAny().isEmpty();
+    }
+
     public User getOne(Long id) {
         return  userRepositry.findById(id).get();
     }
@@ -40,12 +46,6 @@ public class UserService implements UserDetailsService {
         return  users ;
     }
 
-
-//    private Collection<? extends GrantedAuthority>
-//    getAuthorities(Collection<Role> roles) {
-//        return roles.stream().map(x -> new SimpleGrantedAuthority(x.getName()))
-//                .collect(Collectors.toList());
-//    }
 
     public String deeleteUser(Long id ){
         var user = userRepositry.findById(id).get();
@@ -60,7 +60,7 @@ public class UserService implements UserDetailsService {
     public String createUser(User user){
         var s = userRepositry.save(user);
         log.info("create user WORKED");
-        return   s == null ? null : "ok";
+        return   s == null ? null : "Xoş geldiniz. zehmet olmasa giriş sehifesine keçin ve girişinizi edin";
     }
 
     @Transactional

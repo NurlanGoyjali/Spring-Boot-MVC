@@ -1,30 +1,22 @@
 package com.example.hiperecommerce.service;
 
 import com.example.hiperecommerce.entity.Product;
-import com.example.hiperecommerce.entity.Seller;
-import com.example.hiperecommerce.entity.User;
 import com.example.hiperecommerce.reposiory.ProductRepository;
-import com.example.hiperecommerce.reposiory.iRepository;
 import lombok.AllArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.security.access.AuthorizationServiceException;
-import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.web.access.intercept.AuthorizationFilter;
-import org.springframework.security.web.server.authorization.AuthorizationWebFilter;
 import org.springframework.stereotype.Service;
 
-import java.math.BigDecimal;
 import java.util.List;
-import java.util.function.Consumer;
 
 @Service
 @Log4j2
 @AllArgsConstructor
 public class ProductService implements Services<Product> {
 
-    private iRepository<Product> repository;
+    private ProductRepository repository;
     // DO NOT FORGET REPLACE TO SERViCE
-    private iRepository<Seller> sellerRepository;
+    //private iRepository<Seller> sellerRepository;
 
 
     @Override
@@ -34,7 +26,7 @@ public class ProductService implements Services<Product> {
 
     @Override
     public List<Product> getAll(long sellerId) {
-        return sellerRepository.findById(sellerId).get().getProducts();
+        return /*sellerRepository.findById(sellerId).get().getProducts()*/null;
     }
 
     @Override

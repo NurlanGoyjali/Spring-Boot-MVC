@@ -1,15 +1,16 @@
 package com.example.hiperecommerce.entity;
 
 import lombok.*;
-import org.hibernate.annotations.Fetch;
-import org.hibernate.annotations.FetchMode;
-import org.hibernate.annotations.LazyCollection;
-import org.hibernate.annotations.LazyCollectionOption;
+import org.hibernate.annotations.*;
 import org.springframework.context.annotation.Bean;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import javax.persistence.*;
+import javax.persistence.CascadeType;
+import javax.persistence.Entity;
+import javax.persistence.Table;
+import javax.validation.constraints.NotNull;
 import java.time.LocalDateTime;
 import java.util.Collection;
 import java.util.List;
@@ -22,16 +23,17 @@ import java.util.Set;
 public class User implements UserDetails {
 
     @Id
-    @NonNull
+    @NotNull
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private  long Id;
-    @NonNull
+    @NotNull
     private String username;
-    @NonNull
+    @NotNull
     private String email;
-    @NonNull
+    @NotNull
     private String password;
-    @NonNull
+    @NotNull
+    @CreationTimestamp
     private LocalDateTime created_on;
     private LocalDateTime last_login;
 
@@ -49,12 +51,12 @@ public class User implements UserDetails {
     @Fetch(value = FetchMode.SUBSELECT)
     private Set<Seller> sellers;
 
-    public User(@NonNull String username, @NonNull String email, @NonNull String password, @NonNull LocalDateTime created_on, LocalDateTime last_login) {
+    public User(@NonNull String username, @NonNull String email, @NonNull String password, LocalDateTime last_login) {
 
         this.username = username;
         this.email = email;
         this.password = password;
-        this.created_on = created_on;
+        this.created_on = LocalDateTime.now();
         this.last_login = last_login;
     }
 

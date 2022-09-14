@@ -1,21 +1,17 @@
 package com.example.hiperecommerce.service;
 
 import com.example.hiperecommerce.entity.Category;
-import com.example.hiperecommerce.reposiory.iRepository;
+import com.example.hiperecommerce.reposiory.CategoryRepository;
 import lombok.NonNull;
 import lombok.SneakyThrows;
-import org.hibernate.annotations.NotFound;
-import org.springframework.data.crossstore.ChangeSetPersister;
-import org.springframework.http.ResponseEntity;
 
-import java.io.NotActiveException;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
 public class CategoryService implements Services<Category> {
 
-    private iRepository<Category> repository;
+    private CategoryRepository repository;
 
     @Override
     public Category get(long id) {

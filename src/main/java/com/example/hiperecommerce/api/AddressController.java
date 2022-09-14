@@ -22,6 +22,7 @@ import org.springframework.web.bind.annotation.*;
 public class AddressController {
 
     private AddressService addressService;
+
     @PostAuthorize("hasAnyAuthority('USER')")
     @GetMapping("/getall")
     public ResponseEntity GetAll(){

@@ -20,11 +20,15 @@ public class SellerService {
 
     private SellerRepository sellerRepository;
     private RoleService roleService;
-    private final User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 
     public List<Seller> getSellers(long userid){
 
         return sellerRepository.findAll().stream().filter(x->x.getUser().getId()==userid).collect(Collectors.toList());
+    }
+
+    public User user(){
+        return (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+
     }
 
     public Seller getSeller(long sellerid){
@@ -40,15 +44,15 @@ public class SellerService {
     }
 
     public Seller addSeller(Seller seller){  //JUST ADMIN Could CALL THıS METHOD
-        roleService.addRole(roleService.getRoleByName("SELLER"), user.getId());
+        roleService.addRole(roleService.getRoleByName("SELLER"), user().getId());
         return sellerRepository.save(seller);
     }
 
     public boolean unActiveToSeller(Seller seller){
         if (seller.isActive()){
             seller.setActive(false);
-            roleService.deleteRole(user.getId()
-                    ,user.getRoles().stream().filter(x->x.getName().equals("SELLER")).findFirst().get().getId() );
+            roleService.deleteRole(user().getId()
+                    ,user().getRoles().stream().filter(x->x.getName().equals("SELLER")).findFirst().get().getId() );
            return true;
         }
         else return seller.isActive();
